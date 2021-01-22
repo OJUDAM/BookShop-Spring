@@ -1,17 +1,25 @@
 package kr.djam.bookshop.controller;
 
-import org.junit.BeforeClass;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class MainControllerTests extends AbstractApplicationContextTest {
 
-	@BeforeClass
-	public static void set() {
-		System.out.println("Before");
+	private MockMvc mockMvc;
+	
+	@Before
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
 	}
 	@Test
-	public void Test() {
-		System.out.println("@Test ");
+	public void Test() throws Exception {
+		this.mockMvc.perform(get("/Hello"))
+			.andExpect(status().isOk());
 	}
 	
 }
